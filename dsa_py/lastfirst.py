@@ -57,3 +57,7 @@ def main():
 
    if __name__ == "__main__":
       main()
+
+    #time complexity: O(log N)
+    #space complexity: O(1)
+    
