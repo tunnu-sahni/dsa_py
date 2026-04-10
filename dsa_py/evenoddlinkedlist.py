@@ -65,56 +65,56 @@
 #remove N-th node from the end of a linked list
 
 
-class Node:
-    def __init__(self, data1, next1=None):
-        self.data = data1
-        self.next = next1
+# class Node:
+#     def __init__(self, data1, next1=None):
+#         self.data = data1
+#         self.next = next1
 
-class solution:
-    def printList(self, head):
-        while head:
-            print(head.data, end=" ")
-            head = head.next
+# class solution:
+#     def printList(self, head):
+#         while head:
+#             print(head.data, end=" ")
+#             head = head.next
 
-    def deleteNthNodeFromEnd(self, head, N):
+#     def deleteNthNodeFromEnd(self, head, N):
 
-        if head is None:
-            return None
-        cnt = 0
-        temp = head
+#         if head is None:
+#             return None
+#         cnt = 0
+#         temp = head
 
-        while temp:
-            cnt += 1
-            temp = temp.next
+#         while temp:
+#             cnt += 1
+#             temp = temp.next
 
-        if cnt == N:
-            return head.next
+#         if cnt == N:
+#             return head.next
         
-        rec = cnt - N
-        temp = head
+#         rec = cnt - N
+#         temp = head
 
-        while temp:
-            res -= 1
-            if res == 0:
-                break
-            temp = temp.next
+#         while temp:
+#             res -= 1
+#             if res == 0:
+#                 break
+#             temp = temp.next
 
-        temp.next = temp.next.next
-        return head
+#         temp.next = temp.next.next
+#         return head
     
-    if __name__ == "__main__":
-        arr = [1, 2, 3, 4, 5]
-        N = 3
+#     if __name__ == "__main__":
+#         arr = [1, 2, 3, 4, 5]
+#         N = 3
 
-        head = Node(arr[0])
-        head.next = Node(arr[1])
-        head.next.next = Node(arr[2])
-        head.next.next.next = Node(arr[3])
-        head.next.next.next.next = Node(arr[4])
-        head.next.next.next.next.next = Node(arr[5])
+#         head = Node(arr[0])
+#         head.next = Node(arr[1])
+#         head.next.next = Node(arr[2])
+#         head.next.next.next = Node(arr[3])
+#         head.next.next.next.next = Node(arr[4])
+#         head.next.next.next.next.next = Node(arr[5])
 
-        sol = solution()
-        head = sol.deleteNthNodeFromEnd(head, N)
+#         sol = solution()
+#         head = sol.deleteNthNodeFromEnd(head, N)
         
 
         
