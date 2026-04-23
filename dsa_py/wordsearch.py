@@ -78,3 +78,4 @@ n = len(maze)
 obj = solution()
 paths = obj.findpath(maze, n)
 print(" ".join(paths))
+
