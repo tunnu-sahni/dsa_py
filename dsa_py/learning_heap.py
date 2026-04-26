@@ -23,5 +23,7 @@ if __name__ == "__main__":
     output = obj.isMinHeap(nums)
     print("true" if output else "false")
 
+    
+
 
 
