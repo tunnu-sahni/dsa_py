@@ -1,0 +1,84 @@
+from collections import deque
+
+class DisjointSet:
+    def __init__(self, n):
+        self.rank = [0] * (n + 1)
+        self.parent = list(range(n + 1))
+        self.size = [1] * (n + 1)
+
+    def findUPar(self, node):
+        if node == self.parent[node]:
+            return node
+        self.parent[node] = self.findUPar(self.parent[node])  # Path compression
+        return self.parent[node]
+
+    def unionByRank(self, u, v):
+        ulp_u = self.findUPar(u)
+        ulp_v = self.findUPar(v)
+        if ulp_u == ulp_v:
+            return
+        if self.rank[ulp_u] < self.rank[ulp_v]:
+            self.parent[ulp_u] = ulp_v
+        elif self.rank[ulp_v] < self.rank[ulp_u]:
+            self.parent[ulp_v] = ulp_u
+        else:
+            self.parent[ulp_v] = ulp_u
+            self.rank[ulp_u] += 1
+
+    def unionBySize(self, u, v):
+        ulp_u = self.findUPar(u)
+        ulp_v = self.findUPar(v)
+        if ulp_u == ulp_v:
+            return
+        if self.size[ulp_u] < self.size[ulp_v]:
+            self.parent[ulp_u] = ulp_v
+            self.size[ulp_v] += self.size[ulp_u]
+        else:
+            self.parent[ulp_v] = ulp_u
+            self.size[ulp_u] += self.size[ulp_v]
+
+
+class Solution:
+    def isValid(self, adjr, adjc, n, m):
+        return 0 <= adjr < n and 0 <= adjc < m
+
+    def numOfIslands(self, n, m, operators):
+        ds = DisjointSet(n * m)
+        vis = [[0] * m for _ in range(n)]
+        cnt = 0
+        ans = []
+
+        for row, col in operators:
+            if vis[row][col] == 1:
+                ans.append(cnt)
+                continue
+
+            vis[row][col] = 1
+            cnt += 1
+
+            dr = [-1, 0, 1, 0]
+            dc = [0, 1, 0, -1]
+            for i in range(4):
+                adjr = row + dr[i]
+                adjc = col + dc[i]
+                if self.isValid(adjr, adjc, n, m) and vis[adjr][adjc] == 1:
+                    nodeNo = row * m + col
+                    adjNodeNo = adjr * m + adjc
+                    if ds.findUPar(nodeNo) != ds.findUPar(adjNodeNo):
+                        cnt -= 1
+                        ds.unionBySize(nodeNo, adjNodeNo)
+
+            ans.append(cnt)
+        return ans
+
+
+if __name__ == "__main__":
+    n, m = 4, 5
+    operators = [
+        [0, 0], [0, 0], [1, 1], [1, 0], [0, 1],
+        [0, 3], [1, 3], [0, 4], [3, 2], [2, 2], [1, 2], [0, 2]
+    ]
+
+    sol = Solution()
+    ans = sol.numOfIslands(n, m, operators)
+    print(" ".join(map(str, ans)))
