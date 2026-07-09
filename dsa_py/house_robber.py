@@ -11,9 +11,9 @@ class solution:
             if i > 1:
                 pick += prev2
                 notpick = prev
-                curr = max(pick, notpick)
+                cur_i = max(pick, notpick)
                 prev2 = prev
-                prev = curr
+                prev = cur_i
         return prev
     def robStreet(self, n, arr):
         if n == 0:
